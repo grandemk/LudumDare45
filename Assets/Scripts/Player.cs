@@ -41,7 +41,8 @@ public class Player : MonoBehaviour
 
     void OnBecameInvisible()
     {
-        PlayerDied("Player Died. Got Caught Outside the Camera");
+        if(this.gameObject != null)
+            PlayerDied("Player Died. Got Caught Outside the Camera");
     }
 
     void PlayerDied(string message)
