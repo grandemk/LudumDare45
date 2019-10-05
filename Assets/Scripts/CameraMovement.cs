@@ -9,6 +9,7 @@ public class CameraMovement : MonoBehaviour
 
     [SerializeField]
     private float end_of_world_y = 30f;
+
     void Update()
     {
         if(transform.position.y < end_of_world_y)

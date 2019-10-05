@@ -15,6 +15,9 @@ public class Player : MonoBehaviour
     private float grace_period_end;
     private bool grace_has_ended;
 
+    [SerializeField]
+    private float border_x = 13;
+
     private void Start()
     {
         grace_period_end = Time.time + grace_period;
@@ -25,6 +28,13 @@ public class Player : MonoBehaviour
         Movement();
         Hunger();
     }
+
+    void OnBecameInvisible()
+    {
+        Debug.Log("Player Died. Got Caught Outside the Camera");
+        Destroy(this.gameObject);
+    }
+
 
     void Hunger()
     {
@@ -57,7 +67,24 @@ public class Player : MonoBehaviour
         float vertical_input = Input.GetAxis("Vertical");
 
         Vector3 direction = new Vector3(horizontal_input, vertical_input, 0);
-
         transform.Translate(Time.deltaTime * speed * direction);
+        transform.position = WrapX(transform.position, -border_x, border_x);
+
+    }
+
+    Vector3 WrapX(Vector3 v, float a, float b)
+    {
+        if (v.x > b)
+        {
+            return new Vector3(a, transform.position.y, 0);
+        }
+        else if (v.x <= a)
+        {
+            return new Vector3(b, transform.position.y, 0);
+        }
+        else
+        {
+            return v;
+        }
     }
 }
