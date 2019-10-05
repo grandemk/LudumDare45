@@ -177,6 +177,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 162f96b68403cb947a3f39264e317304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &614295115 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8943925362220657961, guid: 315a2e98448d9bc4088fe3123c45654e,
+    type: 3}
+  m_PrefabInstance: {fileID: 30205899662145110}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66c56e7f7905cc64fa280587af39135c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &711536923
 GameObject:
   m_ObjectHideFlags: 0
@@ -601,12 +613,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &1378922246 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 30205900967582032, guid: 315a2e98448d9bc4088fe3123c45654e,
-    type: 3}
-  m_PrefabInstance: {fileID: 30205899662145110}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1400922631
 GameObject:
   m_ObjectHideFlags: 0
@@ -920,12 +926,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28cb1730320a653449fab37dd1c9cd88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawned_prefab: {fileID: 150151715183748845, guid: fb8799799821c0241859c4ddfbdcedce,
+  basic_food_prefab: {fileID: 150151715183748845, guid: fb8799799821c0241859c4ddfbdcedce,
+    type: 3}
+  angry_food_prefab: {fileID: 4842197996630458740, guid: 1e43c0b48172c424890250d41e03b219,
     type: 3}
   spawn_container: {fileID: 2088256305}
   max_simultaneous_spawn: 10
   spawn_interval_delay: 1
-  player_transform: {fileID: 1378922246}
+  player: {fileID: 614295115}
   camera: {fileID: 1413333303}
 --- !u!4 &1747787124
 Transform:
@@ -1426,72 +1434,3 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fb8799799821c0241859c4ddfbdcedce, type: 3}
---- !u!1001 &4842197997511244949
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4842197996630458740, guid: 1e43c0b48172c424890250d41e03b219,
-        type: 3}
-      propertyPath: m_Name
-      value: PNJ_AngryFood
-      objectReference: {fileID: 0}
-    - target: {fileID: 4842197996630458739, guid: 1e43c0b48172c424890250d41e03b219,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5.61
-      objectReference: {fileID: 0}
-    - target: {fileID: 4842197996630458739, guid: 1e43c0b48172c424890250d41e03b219,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4842197996630458739, guid: 1e43c0b48172c424890250d41e03b219,
-        type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4842197996630458739, guid: 1e43c0b48172c424890250d41e03b219,
-        type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4842197996630458739, guid: 1e43c0b48172c424890250d41e03b219,
-        type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4842197996630458739, guid: 1e43c0b48172c424890250d41e03b219,
-        type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4842197996630458739, guid: 1e43c0b48172c424890250d41e03b219,
-        type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4842197996630458739, guid: 1e43c0b48172c424890250d41e03b219,
-        type: 3}
-      propertyPath: m_RootOrder
-      value: 12
-      objectReference: {fileID: 0}
-    - target: {fileID: 4842197996630458739, guid: 1e43c0b48172c424890250d41e03b219,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4842197996630458739, guid: 1e43c0b48172c424890250d41e03b219,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4842197996630458739, guid: 1e43c0b48172c424890250d41e03b219,
-        type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 1e43c0b48172c424890250d41e03b219, type: 3}

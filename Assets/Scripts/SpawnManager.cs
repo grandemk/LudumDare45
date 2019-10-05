@@ -8,7 +8,9 @@ public class SpawnManager : MonoBehaviour
     private IEnumerator spawn_coroutine;
 
     [SerializeField]
-    private GameObject spawned_prefab;
+    private GameObject basic_food_prefab;
+    [SerializeField]
+    private GameObject angry_food_prefab;
 
     [SerializeField]
     private GameObject spawn_container;
@@ -19,7 +21,7 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private float spawn_interval_delay = 2.5f;
 
-    public Transform player_transform;
+    public Player player;
 
     [SerializeField]
     private Camera camera;
@@ -31,6 +33,19 @@ public class SpawnManager : MonoBehaviour
         StartCoroutine(spawn_coroutine);
     }
 
+    private GameObject ChooseSpawnType(int hunger_meter, float dist)
+    {
+        if (hunger_meter > 1000)
+        {
+            if (dist < 0.3f)
+                return angry_food_prefab;
+            else
+                return basic_food_prefab;
+        }
+
+        return basic_food_prefab;
+    }
+
     private IEnumerator SpawnRoutine()
     {
         while(is_running)
@@ -38,10 +53,12 @@ public class SpawnManager : MonoBehaviour
             var num_simultaneous_spawn = spawn_container.transform.childCount;
             if (num_simultaneous_spawn < max_simultaneous_spawn)
             {
+                var dist = Random.Range(0f, 1f);
+                var spawned_prefab = ChooseSpawnType(player.hunger_meter, dist);
                 GameObject obj = Instantiate(spawned_prefab);
                 obj.transform.SetParent(spawn_container.transform);
 
-                if (player_transform != null)
+                if (player != null)
                 {
                     Vector3 center = camera.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, camera.nearClipPlane));
                     float x = Random.Range(-1f, 1f);
