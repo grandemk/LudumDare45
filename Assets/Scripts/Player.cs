@@ -78,7 +78,6 @@ public class Player : MonoBehaviour
                 can_dash = true;
             }
         }
-
     }
 
     public void Feed(Food food)
@@ -105,7 +104,6 @@ public class Player : MonoBehaviour
 
         transform.Translate(Time.deltaTime * speed * direction);
         transform.position = WrapX(transform.position, -border_x, border_x);
-
     }
 
     Vector3 WrapX(Vector3 v, float a, float b)

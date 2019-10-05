@@ -36,5 +36,4 @@ public class BasicFood : Food
             direction_change_time = Time.time;
         }
     }
-
 }
