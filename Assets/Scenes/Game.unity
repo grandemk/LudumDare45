@@ -926,6 +926,7 @@ MonoBehaviour:
   max_simultaneous_spawn: 10
   spawn_interval_delay: 1
   player_transform: {fileID: 1378922246}
+  camera: {fileID: 1413333303}
 --- !u!4 &1747787124
 Transform:
   m_ObjectHideFlags: 0

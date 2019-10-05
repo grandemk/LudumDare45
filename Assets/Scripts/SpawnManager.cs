@@ -21,6 +21,9 @@ public class SpawnManager : MonoBehaviour
 
     public Transform player_transform;
 
+    [SerializeField]
+    private Camera camera;
+
     void Start()
     {
         is_running = true;
@@ -40,11 +43,12 @@ public class SpawnManager : MonoBehaviour
 
                 if (player_transform != null)
                 {
+                    Vector3 center = camera.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, camera.nearClipPlane));
                     float x = Random.Range(-1f, 1f);
                     float y = Random.Range(-1f, 1f);
-                    float distance = Random.Range(1.5f, 5f);
+                    float distance = Random.Range(0f, 8f);
                     var direction = Vector3.Normalize(new Vector3(x, y, 0));
-                    var final_position = player_transform.position + direction * distance;
+                    var final_position = center + direction * distance;
                     obj.transform.position = final_position;
                 }
             }
