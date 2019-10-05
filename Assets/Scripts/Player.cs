@@ -7,8 +7,8 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float speed = 5f;
 
-    [SerializeField]
-    private int hunger_meter = 0;
+    public int hunger_meter = 0;
+    public int max_hunger_meter = 10000;
 
     [SerializeField]
     private float grace_period = 5;
