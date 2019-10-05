@@ -41,11 +41,14 @@ public class BasicFood : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.CompareTag("Player"))
+        if (other.CompareTag("Player"))
         {
             Player player = other.transform.GetComponent<Player>();
             if (player != null)
+            {
                 player.Feed(this);
+                Destroy(this.gameObject);
+            }
             else
                 Debug.LogWarning("Player doesn't have any script enabled !");
         }
