@@ -4,14 +4,17 @@ using UnityEngine;
 
 public class MainMenuControls : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            var loader = GetComponent<SceneLoader>();
+            loader.LoadByIndex(1);
+        }
+        else if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            var app_manager = GetComponent<ApplicationManager>();
+            app_manager.Quit();
+        }
     }
 }
