@@ -19,7 +19,7 @@ public class Player : MonoBehaviour
     [SerializeField]
     private float border_x = 9.5f;
 
-    private float dash_cooldown = 3f;
+    private float dash_cooldown = 1f;
     private float next_dash_time;
     private float dash_effect_time = 0.5f;
     private float dash_effect_end;
@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
     {
         Debug.Log(message);
         var ui = GetComponent<PlayerAnnouncement>();
-        ui.Show("You died");
+        ui.Show("You died", "failure");
         Destroy(this.gameObject);
     }
 
@@ -70,7 +70,11 @@ public class Player : MonoBehaviour
             else if (hunger_meter > 1000)
             {
                 if (can_dash == false)
+                {
                     Debug.Log("Player can now dash");
+                    var ui = GetComponent<PlayerAnnouncement>();
+                    ui.ShowFor("Use Q to dash", "info", 4f);
+                }
                 can_dash = true;
             }
         }
