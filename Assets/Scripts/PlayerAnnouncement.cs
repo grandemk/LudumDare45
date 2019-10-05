@@ -10,14 +10,13 @@ public class PlayerAnnouncement : MonoBehaviour
     public UnityEngine.UI.Text success_text_prefab;
 
     IEnumerator show_coroutine;
+    Text current_text = null;
 
     public void Show(string message, string type)
     {
-        Show_(message, type);
-    }
+        if (current_text != null && current_text.gameObject != null)
+            Destroy(current_text.gameObject);
 
-    private Text Show_(string message, string type)
-    {
         var prefab = bad_text_prefab;
         if (string.Equals(type, "info"))
             prefab = info_text_prefab;
@@ -25,22 +24,22 @@ public class PlayerAnnouncement : MonoBehaviour
             prefab = success_text_prefab;
 
         var canvas = GameObject.Find("Canvas");
-        var text = Instantiate<Text>(prefab, canvas.transform);
-        text.text = message;
-        return text;
+        current_text = Instantiate<Text>(prefab, canvas.transform);
+        current_text.text = message;
     }
 
     public void ShowFor(string message, string type, float sec)
     {
-        var text = Show_(message, type);
-        Debug.Log(text);
-        show_coroutine = ShowCoroutine(text, sec);
+        Show(message, type);
+        Debug.Log(current_text.text);
+        show_coroutine = ShowCoroutine(current_text, sec);
         StartCoroutine(show_coroutine);
     }
 
     private IEnumerator ShowCoroutine(Text text, float sec)
     {
         yield return new WaitForSeconds(sec);
-        Destroy(text);
+        if(text != null && text.gameObject != null)
+            Destroy(text.gameObject);
     }
 }
