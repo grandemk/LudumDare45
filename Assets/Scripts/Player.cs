@@ -6,13 +6,44 @@ public class Player : MonoBehaviour
 {
     [SerializeField]
     private float speed = 5f;
-    void Start()
+
+    [SerializeField]
+    private int hunger_meter = 0;
+
+    [SerializeField]
+    private float grace_period = 5;
+    private float grace_period_end;
+    private bool grace_has_ended;
+
+    private void Start()
     {
+        grace_period_end = Time.time + grace_period;
     }
 
     void Update()
     {
         Movement();
+        Hunger();
+    }
+
+    void Hunger()
+    {
+        hunger_meter--;
+
+        if (Time.time > grace_period_end)
+        {
+            if(!grace_has_ended)
+                Debug.Log("Grace Period End");
+
+            grace_has_ended = true;
+
+            if (hunger_meter < 0)
+            {
+                Debug.Log("Player Died. Too Hungry");
+                Destroy(this.gameObject);
+            }
+        }
+
     }
 
     void Movement()
