@@ -35,8 +35,11 @@ public class BasicFood : MonoBehaviour
             transform.Translate(current_direction * (leash_size - current_distance));
             direction_change_time = Time.time;
         }
+    }
 
-
+    void OnBecameInvisible()
+    {
+        Destroy(this.gameObject);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
