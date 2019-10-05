@@ -18,8 +18,21 @@ public class AngryFood : Food
         satiation_value = 1000;
     }
 
+    void Drain()
+    {
+        var obj = GameObject.Find("Player");
+        if (obj == null)
+            return;
+        var player = obj.GetComponent<Player>();
+        if (player == null)
+            return;
+        player.hunger_meter -= 10;
+    }
+
     void Update()
     {
+        Drain();
+
         if (Time.time > direction_change_time)
         {
             direction_change_time += Time.time;
