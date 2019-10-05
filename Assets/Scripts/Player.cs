@@ -81,7 +81,7 @@ public class Player : MonoBehaviour
 
     }
 
-    public void Feed(BasicFood food)
+    public void Feed(Food food)
     {
         hunger_meter += food.satiation_value;
     }

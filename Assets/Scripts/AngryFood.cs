@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BasicFood : Food 
+public class AngryFood : Food
 {
     [SerializeField]
     private float speed = 2.5f;
@@ -15,7 +15,7 @@ public class BasicFood : Food
     void Start()
     {
         init_position = transform.position;
-        satiation_value = 250;
+        satiation_value = 1000;
     }
 
     void Update()
