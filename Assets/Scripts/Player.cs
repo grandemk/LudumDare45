@@ -25,6 +25,7 @@ public class Player : MonoBehaviour
     private float dash_effect_end;
     private bool can_dash = false;
     private float dash_speed = 10f;
+    private bool player_is_out_of_bound = false;
 
 
     private void Start()
@@ -37,19 +38,28 @@ public class Player : MonoBehaviour
     {
         Movement();
         Hunger();
+        if(player_is_out_of_bound)
+            PlayerDied("Player Died. Got Caught Outside the Camera");
     }
 
     void OnBecameInvisible()
     {
-        if(this.gameObject != null)
-            PlayerDied("Player Died. Got Caught Outside the Camera");
+        player_is_out_of_bound = true;
+    }
+
+    void PlayerWin(string message)
+    {
+        Debug.Log(message);
+        var ui = GetComponent<PlayerAnnouncement>();
+        ui.Show("You Win", "success");
+        Destroy(this.gameObject);
     }
 
     void PlayerDied(string message)
     {
         Debug.Log(message);
         var ui = GetComponent<PlayerAnnouncement>();
-        ui.Show("You died", "failure");
+        ui.Show("You Died", "failure");
         Destroy(this.gameObject);
     }
 
@@ -68,16 +78,22 @@ public class Player : MonoBehaviour
             {
                 PlayerDied("Player Died. Too Hungry");
             }
-            else if (hunger_meter > 1000)
+        }
+
+        if (hunger_meter > 1000)
+        {
+            if (can_dash == false)
             {
-                if (can_dash == false)
-                {
-                    Debug.Log("Player can now dash");
-                    var ui = GetComponent<PlayerAnnouncement>();
-                    ui.ShowFor("Use Q to dash", "info", 4f);
-                }
-                can_dash = true;
+                Debug.Log("Player can now dash");
+                var ui = GetComponent<PlayerAnnouncement>();
+                ui.ShowFor("Use Q to dash", "info", 4f);
             }
+            can_dash = true;
+        }
+
+        if (hunger_meter > max_hunger_meter)
+        {
+            PlayerWin("Player Won. Satisfied his hunger");
         }
     }
 
