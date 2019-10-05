@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 150151715183748850}
   - component: {fileID: 150151715183748855}
   - component: {fileID: 150151715183748854}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: PNJ_BasicFood
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -107,7 +107,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2.5
-  satiation_value: 1000
+  satiation_value: 250
 --- !u!54 &150151715183748854
 Rigidbody:
   m_ObjectHideFlags: 0
