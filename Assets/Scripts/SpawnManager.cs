@@ -16,6 +16,9 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private int max_simultaneous_spawn = 10;
 
+    [SerializeField]
+    private float spawn_interval_delay = 2.5f;
+
     void Start()
     {
         is_running = true;
@@ -33,7 +36,7 @@ public class SpawnManager : MonoBehaviour
                 GameObject obj = Instantiate(spawned_prefab);
                 obj.transform.SetParent(spawn_container.transform);
             }
-            yield return new WaitForSeconds(2f);
+            yield return new WaitForSeconds(spawn_interval_delay);
         }
     }
 }

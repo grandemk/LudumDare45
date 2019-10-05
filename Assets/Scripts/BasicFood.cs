@@ -6,7 +6,7 @@ public class BasicFood : MonoBehaviour
 {
     [SerializeField]
     private float speed = 2.5f;
-    public int satiation_value = 1000;
+    public int satiation_value = 250;
 
     Vector3 init_position;
     float leash_size = 2f;
