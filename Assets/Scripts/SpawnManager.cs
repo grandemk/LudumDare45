@@ -19,6 +19,8 @@ public class SpawnManager : MonoBehaviour
     [SerializeField]
     private float spawn_interval_delay = 2.5f;
 
+    public Transform player_transform;
+
     void Start()
     {
         is_running = true;
@@ -35,6 +37,16 @@ public class SpawnManager : MonoBehaviour
             {
                 GameObject obj = Instantiate(spawned_prefab);
                 obj.transform.SetParent(spawn_container.transform);
+
+                if (player_transform != null)
+                {
+                    float x = Random.Range(-1f, 1f);
+                    float y = Random.Range(-1f, 1f);
+                    float distance = Random.Range(1.5f, 5f);
+                    var direction = Vector3.Normalize(new Vector3(x, y, 0));
+                    var final_position = player_transform.position + direction * distance;
+                    obj.transform.position = final_position;
+                }
             }
             yield return new WaitForSeconds(spawn_interval_delay);
         }

@@ -177,6 +177,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 162f96b68403cb947a3f39264e317304, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &319074959 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 289070155164803398, guid: 315a2e98448d9bc4088fe3123c45654e,
+    type: 3}
+  m_PrefabInstance: {fileID: 3172065139729572794}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1106817024
 GameObject:
   m_ObjectHideFlags: 0
@@ -504,6 +510,7 @@ MonoBehaviour:
   spawn_container: {fileID: 2088256305}
   max_simultaneous_spawn: 10
   spawn_interval_delay: 2.5
+  player_transform: {fileID: 319074959}
 --- !u!4 &1747787124
 Transform:
   m_ObjectHideFlags: 0
