@@ -41,7 +41,14 @@ public class Player : MonoBehaviour
 
     void OnBecameInvisible()
     {
-        Debug.Log("Player Died. Got Caught Outside the Camera");
+        PlayerDied("Player Died. Got Caught Outside the Camera");
+    }
+
+    void PlayerDied(string message)
+    {
+        Debug.Log(message);
+        var ui = GetComponent<PlayerAnnouncement>();
+        ui.Show("You died");
         Destroy(this.gameObject);
     }
 
@@ -58,8 +65,7 @@ public class Player : MonoBehaviour
 
             if (hunger_meter < 0)
             {
-                Debug.Log("Player Died. Too Hungry");
-                Destroy(this.gameObject);
+                PlayerDied("Player Died. Too Hungry");
             }
             else if (hunger_meter > 1000)
             {
