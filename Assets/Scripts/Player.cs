@@ -46,6 +46,11 @@ public class Player : MonoBehaviour
 
     }
 
+    public void Feed(BasicFood food)
+    {
+        hunger_meter += food.satiation_value;
+    }
+
     void Movement()
     {
         float horizontal_input = Input.GetAxis("Horizontal");
