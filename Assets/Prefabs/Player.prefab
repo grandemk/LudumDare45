@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 30205900967582034}
   - component: {fileID: 30205900967582037}
   - component: {fileID: 8943925362220657961}
+  - component: {fileID: 1344485215}
   m_Layer: 9
   m_Name: Player
   m_TagString: Player
@@ -144,4 +145,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 5
   hunger_meter: 0
+  max_hunger_meter: 10000
   grace_period: 5
+  border_x: 9.5
+--- !u!114 &1344485215
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 30205900967582036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ee46a703e071dc4aa911d94e81498ed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  textPrefab: {fileID: 3688030811540538987, guid: cb9c1878f2c97254d88ddd6bc39f51b5,
+    type: 3}
