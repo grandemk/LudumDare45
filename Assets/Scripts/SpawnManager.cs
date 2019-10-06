@@ -11,6 +11,8 @@ public class SpawnManager : MonoBehaviour
     private GameObject basic_food_prefab;
     [SerializeField]
     private GameObject angry_food_prefab;
+    [SerializeField]
+    private GameObject mad_food_prefab;
 
     [SerializeField]
     private GameObject spawn_container;
@@ -24,7 +26,7 @@ public class SpawnManager : MonoBehaviour
     public Player player;
 
     [SerializeField]
-    private Camera camera;
+    private Camera cam;
 
     void Start()
     {
@@ -55,19 +57,16 @@ public class SpawnManager : MonoBehaviour
             {
                 var dist = Random.Range(0f, 1f);
                 var spawned_prefab = ChooseSpawnType(player.hunger_meter, dist);
-                GameObject obj = Instantiate(spawned_prefab);
-                obj.transform.SetParent(spawn_container.transform);
+                GameObject obj = Instantiate(spawned_prefab, spawn_container.transform);
 
-                if (player != null)
-                {
-                    Vector3 center = camera.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, camera.nearClipPlane));
-                    float x = Random.Range(-1f, 1f);
-                    float y = Random.Range(-1f, 1f);
-                    float distance = Random.Range(0f, 8f);
-                    var direction = Vector3.Normalize(new Vector3(x, y, 0));
-                    var final_position = center + direction * distance;
-                    obj.transform.position = final_position;
-                }
+                Vector3 center = cam.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, 0));
+                center.z = 0;
+                float x = Random.Range(-1f, 1f);
+                float y = Random.Range(-1f, 1f);
+                float distance = Random.Range(0f, 8f);
+                var direction = Vector3.Normalize(new Vector3(x, y, 0));
+                var final_position = center + direction * distance;
+                obj.transform.position = final_position;
             }
             yield return new WaitForSeconds(spawn_interval_delay);
         }
