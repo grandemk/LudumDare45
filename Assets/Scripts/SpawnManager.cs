@@ -37,6 +37,16 @@ public class SpawnManager : MonoBehaviour
 
     private GameObject ChooseSpawnType(int hunger_meter, float dist)
     {
+        if (hunger_meter > 3000)
+        {
+            if (dist < 0.3f)
+                return angry_food_prefab;
+            else if(dist < 0.8f)
+                return basic_food_prefab;
+            else
+                return mad_food_prefab;
+        }
+
         if (hunger_meter > 1000)
         {
             if (dist < 0.3f)
