@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class CameraMovement : MonoBehaviour
 {
-    [SerializeField]
-    private float speed = 0.01f;
+    public float speed = 0.01f;
 
     [SerializeField]
     private float end_of_world_y = 30f;
@@ -20,6 +19,7 @@ public class CameraMovement : MonoBehaviour
 
     void Update()
     {
+        speed = Mathf.Clamp(speed, 0, 0.3f);
         var cur_speed = 0f;
         var direction = Vector3.up;
 

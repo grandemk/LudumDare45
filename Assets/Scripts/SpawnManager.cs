@@ -24,15 +24,40 @@ public class SpawnManager : MonoBehaviour
     private float spawn_interval_delay = 2.5f;
 
     public Player player;
+    float hunger_meter_trend = 0f;
+    float time_hunger_check;
 
     [SerializeField]
     private Camera cam;
 
     void Start()
     {
+        time_hunger_check = Time.time;
         is_running = true;
         spawn_coroutine = SpawnRoutine();
         StartCoroutine(spawn_coroutine);
+    }
+
+    void Update()
+    {
+        if (Time.time >= time_hunger_check)
+        {
+            time_hunger_check += 1f;
+            var cur_hunger_meter = 0;
+            if (player == null)
+                cur_hunger_meter = player.hunger_meter;
+
+            hunger_meter_trend = cur_hunger_meter - hunger_meter_trend;
+        }
+    }
+
+    private int ChooseSpawnNumber(int hunger_meter, float dist)
+    {
+        int num_spawn = 1;
+        if (dist < 0.5f)
+            num_spawn = Mathf.Clamp(num_spawn, 2, hunger_meter / 1000);
+
+        return num_spawn;
     }
 
     private GameObject ChooseSpawnType(int hunger_meter, float dist)
@@ -65,19 +90,25 @@ public class SpawnManager : MonoBehaviour
             var num_simultaneous_spawn = spawn_container.transform.childCount;
             if (num_simultaneous_spawn < max_simultaneous_spawn)
             {
-                var dist = Random.Range(0f, 1f);
-                var spawned_prefab = ChooseSpawnType(player.hunger_meter, dist);
-                GameObject obj = Instantiate(spawned_prefab, spawn_container.transform);
+                var hunger_meter = 0;
+                if (player != null)
+                    hunger_meter = player.hunger_meter;
 
-                Vector3 center = cam.ScreenToWorldPoint(new Vector3(Screen.width / 2, Screen.height / 2, 0));
-                center.z = 0;
-                float x = Random.Range(-1f, 1f);
-                float y = Random.Range(-1f, 1f);
-                float distance = Random.Range(0f, 8f);
-                var direction = Vector3.Normalize(new Vector3(x, y, 0));
-                var final_position = center + direction * distance;
-                obj.transform.position = final_position;
+                int spawn_num = ChooseSpawnNumber(hunger_meter, Random.Range(0f, 1f));
+                
+                for (int i = 0; i < spawn_num; ++i)
+                {
+                    var spawned_prefab = ChooseSpawnType(hunger_meter, Random.Range(0f, 1f));
+                    GameObject obj = Instantiate(spawned_prefab, spawn_container.transform);
+                    Vector3 world_pos = cam.ScreenToWorldPoint(new Vector3(Screen.width / 2 + Random.Range(0, Screen.width / 2 - 1), Screen.height / 2 + Random.Range(0, Screen.height / 2 - 1), 0));
+                    world_pos.z = 0f;
+                    obj.transform.position = world_pos;
+                }
             }
+
+            if (hunger_meter_trend < 20f)
+                spawn_interval_delay = 1f;
+
             yield return new WaitForSeconds(spawn_interval_delay);
         }
     }

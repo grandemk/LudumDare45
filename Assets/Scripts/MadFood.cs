@@ -8,17 +8,23 @@ public class MadFood : Food
     private float speed = 4f;
 
     [SerializeField]
-    private GameObject mad_food_prefab;
+    private CameraMovement cam_movement;
 
     Vector3 init_position;
-    float leash_size = 2f;
-    float direction_change_time = 2f;
-    Vector3 current_direction;
+    private float leash_size = 2f;
+    private float direction_change_time = 2f;
+    private Vector3 current_direction;
+
+    private float cam_speed_up = 0f;
+    private float speed_up_time = 0f;
 
     void Start()
     {
         init_position = transform.position;
-        satiation_value = 1000;
+        satiation_value = 200;
+        speed_up_time = Time.time;
+        var cam = Camera.main;
+        cam_movement = cam.GetComponent<CameraMovement>();
     }
 
     void Drain()
@@ -30,6 +36,21 @@ public class MadFood : Food
         if (player == null)
             return;
         player.hunger_meter -= 2;
+    }
+
+    void SpeedUp()
+    {
+        var speed_up = 0.01f;
+        if (cam_speed_up < 0.1f)
+        {
+            cam_speed_up += speed_up;
+            cam_movement.speed += speed_up;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        cam_movement.speed -= cam_speed_up;
     }
 
     public GameObject FindClosestFoodToConvert()
@@ -55,6 +76,11 @@ public class MadFood : Food
     void Update()
     {
         Drain();
+        if (Time.time > speed_up_time)
+        {
+            speed_up_time = Time.time + 1f;
+            SpeedUp();
+        }
 
         var closest_food = FindClosestFoodToConvert();
         if (closest_food == null)
@@ -108,8 +134,6 @@ public class MadFood : Food
 
         if (other.CompareTag("BasicFood"))
         {
-            Instantiate(mad_food_prefab);
-            mad_food_prefab.transform.position = other.transform.position;
             Destroy(other.gameObject);
         }
     }
