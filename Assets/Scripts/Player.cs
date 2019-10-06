@@ -27,6 +27,9 @@ public class Player : MonoBehaviour
     private float dash_speed = 10f;
     private bool player_is_out_of_bound = false;
 
+    [SerializeField]
+    bool god_mode = false;
+
 
     private void Start()
     {
@@ -38,8 +41,6 @@ public class Player : MonoBehaviour
     {
         Movement();
         Hunger();
-        if(player_is_out_of_bound)
-            PlayerDied("Player Died. Got Caught Outside the Camera");
     }
 
     void OnBecameInvisible()
@@ -67,6 +68,20 @@ public class Player : MonoBehaviour
     {
         hunger_meter--;
 
+        if (hunger_meter > 1000)
+        {
+            if (can_dash == false)
+            {
+                Debug.Log("Player can now dash");
+                var ui = GetComponent<PlayerAnnouncement>();
+                ui.ShowFor("Use Q to dash", "info", 4f);
+            }
+            can_dash = true;
+        }
+
+        if (god_mode)
+            return;
+
         if (Time.time > grace_period_end)
         {
             if(!grace_has_ended)
@@ -80,16 +95,6 @@ public class Player : MonoBehaviour
             }
         }
 
-        if (hunger_meter > 1000)
-        {
-            if (can_dash == false)
-            {
-                Debug.Log("Player can now dash");
-                var ui = GetComponent<PlayerAnnouncement>();
-                ui.ShowFor("Use Q to dash", "info", 4f);
-            }
-            can_dash = true;
-        }
 
         if (hunger_meter > max_hunger_meter)
         {
@@ -121,6 +126,9 @@ public class Player : MonoBehaviour
 
         transform.Translate(Time.deltaTime * speed * direction);
         transform.position = WrapX(transform.position, -border_x, border_x);
+
+        if(player_is_out_of_bound && !god_mode)
+            PlayerDied("Player Died. Got Caught Outside the Camera");
     }
 
     Vector3 WrapX(Vector3 v, float a, float b)
