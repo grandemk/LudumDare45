@@ -1492,6 +1492,7 @@ MonoBehaviour:
     type: 3}
   spawn_container: {fileID: 2088256305}
   max_simultaneous_spawn: 10
+  min_simultaneous_spawn: 3
   spawn_interval_delay: 1
   player: {fileID: 614295115}
   cam: {fileID: 1413333303}
@@ -1853,6 +1854,16 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 8943925362220657961, guid: 315a2e98448d9bc4088fe3123c45654e,
+        type: 3}
+      propertyPath: god_mode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943925362220657961, guid: 315a2e98448d9bc4088fe3123c45654e,
+        type: 3}
+      propertyPath: hunger_meter
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 30205900967582032, guid: 315a2e98448d9bc4088fe3123c45654e,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1907,11 +1918,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8943925362220657961, guid: 315a2e98448d9bc4088fe3123c45654e,
-        type: 3}
-      propertyPath: god_mode
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1344485215, guid: 315a2e98448d9bc4088fe3123c45654e, type: 3}
       propertyPath: bad_text_prefab

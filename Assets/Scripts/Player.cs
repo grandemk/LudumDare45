@@ -16,13 +16,15 @@ public class Player : MonoBehaviour
     private float grace_period_end;
     private bool grace_has_ended;
 
-    private float dash_cooldown = 1f;
-    private float next_dash_time;
-    private float dash_effect_time = 0.5f;
-    private float dash_effect_end;
-    private bool can_dash = false;
-    private float dash_speed = 10f;
+    private float consume_cooldown = 1f;
+    private float next_consume_time;
+    private float consume_effect_time = 0.5f;
+    private float consume_effect_end;
+    private bool can_consume = false;
+    private float consume_speed = 10f;
     private bool player_is_out_of_bound = false;
+
+    private Vector3 scale;
 
     [SerializeField]
     bool god_mode = false;
@@ -31,7 +33,8 @@ public class Player : MonoBehaviour
     private void Start()
     {
         grace_period_end = Time.time + grace_period;
-        next_dash_time = Time.time;
+        next_consume_time = Time.time;
+        scale = transform.localScale;
     }
 
     void Update()
@@ -67,13 +70,13 @@ public class Player : MonoBehaviour
 
         if (hunger_meter > 1000)
         {
-            if (can_dash == false)
+            if (can_consume == false)
             {
-                Debug.Log("Player can now dash");
+                Debug.Log("Player can now consume");
                 var ui = GetComponent<PlayerAnnouncement>();
-                ui.ShowFor("Use Q to dash", "info", 4f);
+                ui.ShowFor("Right Button to Consume", "info", 4f);
             }
-            can_dash = true;
+            can_consume = true;
         }
 
         if (god_mode)
@@ -101,6 +104,9 @@ public class Player : MonoBehaviour
 
     public void Feed(Food food)
     {
+        var audio_source = GetComponent<AudioSource>();
+        if (audio_source != null)
+            audio_source.Play(1);
         hunger_meter += food.satiation_value;
     }
 
@@ -111,14 +117,15 @@ public class Player : MonoBehaviour
 
         Vector3 direction = new Vector3(horizontal_input, vertical_input, 0);
 
-        if (Input.GetKeyDown(KeyCode.Q) && can_dash && next_dash_time < Time.time)
+        if (Input.GetMouseButtonDown(1) && can_consume && next_consume_time < Time.time)
         {
-            next_dash_time = Time.time + dash_cooldown;
-            speed = dash_speed;
-            dash_effect_end = Time.time + dash_effect_time;
+            next_consume_time = Time.time + consume_cooldown;
+            speed = consume_speed;
+            consume_effect_end = Time.time + consume_effect_time;
+            StartCoroutine(ScaleControl(2, consume_effect_time));
         }
 
-        if (Time.time > dash_effect_end)
+        if (Time.time > consume_effect_end)
             speed = normal_speed;
 
         transform.Translate(Time.deltaTime * speed * direction);
@@ -126,4 +133,28 @@ public class Player : MonoBehaviour
         if(player_is_out_of_bound && !god_mode)
             PlayerDied("Player Died. Got Caught Outside the Camera");
     }
+
+    IEnumerator ScaleControl(float final_scale, float consume_effect_time)
+    {
+        var starting_local_scale = transform.localScale;
+        var num_steps = 10;
+        var step_time = consume_effect_time / (2f * num_steps);
+        var start_scale = 1f;
+
+        var cur_scale = 1f;
+        for (int cur_step = 0; cur_step < num_steps; ++cur_step)
+        {
+            cur_scale = start_scale + final_scale * (cur_step + 1) / num_steps;
+            transform.localScale = starting_local_scale * cur_scale;
+            yield return new WaitForSeconds(step_time);
+        }
+
+        for (int cur_step = 0; cur_step < num_steps; ++cur_step)
+        {
+            cur_scale = start_scale + final_scale * (num_steps - cur_step - 1) / num_steps;
+            transform.localScale = starting_local_scale * cur_scale;
+            yield return new WaitForSeconds(step_time);
+        }
+    }
 }
+

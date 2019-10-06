@@ -24,16 +24,22 @@ public class PlayerAnnouncement : MonoBehaviour
             prefab = success_text_prefab;
 
         var canvas = GameObject.Find("Canvas");
-        current_text = Instantiate<Text>(prefab, canvas.transform);
-        current_text.text = message;
+        if (canvas != null)
+        {
+            current_text = Instantiate<Text>(prefab, canvas.transform);
+            current_text.text = message;
+        }
     }
 
     public void ShowFor(string message, string type, float sec)
     {
         Show(message, type);
-        Debug.Log(current_text.text);
-        show_coroutine = ShowCoroutine(current_text, sec);
-        StartCoroutine(show_coroutine);
+        if (current_text != null)
+        {
+            Debug.Log(current_text.text);
+            show_coroutine = ShowCoroutine(current_text, sec);
+            StartCoroutine(show_coroutine);
+        }
     }
 
     private IEnumerator ShowCoroutine(Text text, float sec)

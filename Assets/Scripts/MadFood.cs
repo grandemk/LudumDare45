@@ -83,15 +83,10 @@ public class MadFood : Food
         }
 
         var closest_food = FindClosestFoodToConvert();
-        if (closest_food == null)
-            Debug.Log("target position null");
         if (closest_food != null)
         {
             direction_change_time += Time.time;
             current_direction = Vector3.Normalize(closest_food.transform.position - transform.position);
-            Debug.Log("direction: " + current_direction);
-            Debug.Log("target position" + closest_food.transform.position);
-            Debug.Log("our position" + transform.position);
             transform.Translate(Time.deltaTime * speed * current_direction);
             init_position = transform.position;
             transform.Translate(Time.deltaTime * speed * current_direction);
@@ -113,9 +108,7 @@ public class MadFood : Food
                 transform.Translate(current_direction * (leash_size - current_distance));
                 direction_change_time = Time.time;
             }
-
         }
-
     }
 
     void OnTriggerEnter2D(Collider2D other)
