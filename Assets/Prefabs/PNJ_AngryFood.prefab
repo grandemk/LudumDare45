@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4842197996630458736}
   - component: {fileID: 4842197996630458737}
   - component: {fileID: 4842197996630458742}
-  - component: {fileID: 4842197996630458743}
+  - component: {fileID: 4527058751959405222}
   m_Layer: 9
   m_Name: PNJ_AngryFood
   m_TagString: AngryFood
@@ -130,7 +130,7 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 4.7909117, y: 4.790556}
   m_EdgeRadius: 0
---- !u!114 &4842197996630458743
+--- !u!114 &4527058751959405222
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -142,5 +142,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 956266e6e8e66f94095dab3671db24a5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  satiation_value: 0
+  satiation_value: 1000
   speed: 2.5
+  idle1_sprite: {fileID: 21300000, guid: 740b2325bbb59094d9cbf0456262c570, type: 3}
+  idle2_sprite: {fileID: 21300000, guid: a641d6a25a782a548a1f973fe4a0aae2, type: 3}

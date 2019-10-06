@@ -48,6 +48,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   satiation_value: 250
   speed: 2.5
+  idle1_sprite: {fileID: 21300000, guid: ab300fe7ac00fc744bff036efd3f3c43, type: 3}
+  idle2_sprite: {fileID: 21300000, guid: dcbc2fb573de40741b87a83f1b879d20, type: 3}
 --- !u!50 &371018126
 Rigidbody2D:
   serializedVersion: 4

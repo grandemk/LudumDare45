@@ -2040,18 +2040,38 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8943925362220657961, guid: 315a2e98448d9bc4088fe3123c45654e,
         type: 3}
-      propertyPath: god_mode
-      value: 1
-      objectReference: {fileID: 0}
+      propertyPath: death_sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: bd8e69e736084764a99f7d8472b43315,
+        type: 3}
     - target: {fileID: 8943925362220657961, guid: 315a2e98448d9bc4088fe3123c45654e,
         type: 3}
-      propertyPath: hunger_meter
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6460552296877022711, guid: 315a2e98448d9bc4088fe3123c45654e,
+      propertyPath: win_sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 39de2c6286297a9499b1bfe9860088cc,
         type: 3}
-      propertyPath: m_Volume
-      value: 0.05
+    - target: {fileID: 8943925362220657961, guid: 315a2e98448d9bc4088fe3123c45654e,
+        type: 3}
+      propertyPath: idle1_sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 3eab5e36c3534d54481a4476a549f144,
+        type: 3}
+    - target: {fileID: 8943925362220657961, guid: 315a2e98448d9bc4088fe3123c45654e,
+        type: 3}
+      propertyPath: idle2_sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5a7c690bd6cb1484390f3d9d2d3eb297,
+        type: 3}
+    - target: {fileID: 8943925362220657961, guid: 315a2e98448d9bc4088fe3123c45654e,
+        type: 3}
+      propertyPath: consume_sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 2c88a905e2f93bd46bf9a2dd88404f5d,
+        type: 3}
+    - target: {fileID: 8943925362220657961, guid: 315a2e98448d9bc4088fe3123c45654e,
+        type: 3}
+      propertyPath: god_mode
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 30205900967582032, guid: 315a2e98448d9bc4088fe3123c45654e,
         type: 3}
@@ -2108,21 +2128,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 1344485215, guid: 315a2e98448d9bc4088fe3123c45654e, type: 3}
-      propertyPath: bad_text_prefab
-      value: 
-      objectReference: {fileID: 3688030811540538987, guid: cb9c1878f2c97254d88ddd6bc39f51b5,
-        type: 3}
-    - target: {fileID: 1344485215, guid: 315a2e98448d9bc4088fe3123c45654e, type: 3}
-      propertyPath: success_text_prefab
-      value: 
-      objectReference: {fileID: 1600261017932090374, guid: 3b280e9d784dd234eba42b5f87e6510c,
-        type: 3}
-    - target: {fileID: 1344485215, guid: 315a2e98448d9bc4088fe3123c45654e, type: 3}
-      propertyPath: info_text_prefab
-      value: 
-      objectReference: {fileID: 8362763633192414363, guid: d8cd8844077ee79418c06d834c1cd990,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 315a2e98448d9bc4088fe3123c45654e, type: 3}
 --- !u!1001 &150151715129834754

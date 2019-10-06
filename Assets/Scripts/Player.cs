@@ -63,6 +63,8 @@ public class Player : MonoBehaviour
         var c = image.color;
         c.a = 0f;
         image.color = c;
+
+        anim_idle_change_time = Time.time;
     }
 
     void Update()
@@ -251,10 +253,9 @@ public class Player : MonoBehaviour
         if (Time.time > consume_effect_end)
         {
             speed = normal_speed;
-            UpdateSprite(idle1_sprite);
             if (Time.time > anim_idle_change_time)
             {
-                anim_idle_change_time += 0.5f;
+                anim_idle_change_time = Time.time + 0.5f;
                 anim_toggle = !anim_toggle;
                 if(anim_toggle)
                     UpdateSprite(idle2_sprite);

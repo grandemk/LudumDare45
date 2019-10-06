@@ -7,19 +7,40 @@ public class BasicFood : Food
     [SerializeField]
     private float speed = 2.5f;
 
+    public Sprite idle1_sprite;
+    public Sprite idle2_sprite;
+
     Vector3 init_position;
     float leash_size = 2f;
     float direction_change_time = 2f;
     Vector3 current_direction;
+    float anim_idle_change_time;
+    bool anim_toggle = false;
 
     void Start()
     {
         init_position = transform.position;
         satiation_value = 250;
+        anim_idle_change_time = Time.time;
+    }
+
+    void UpdateSprite(Sprite new_sprite)
+    {
+        gameObject.GetComponent<SpriteRenderer>().sprite = new_sprite; 
     }
 
     void Update()
     {
+        if (Time.time > anim_idle_change_time)
+        {
+            anim_idle_change_time = Time.time + 0.5f;
+            anim_toggle = !anim_toggle;
+            if (anim_toggle)
+                UpdateSprite(idle2_sprite);
+            else
+                UpdateSprite(idle1_sprite);
+        }
+
         if (Time.time > direction_change_time)
         {
             direction_change_time += Time.time;
