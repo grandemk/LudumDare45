@@ -144,6 +144,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 66c56e7f7905cc64fa280587af39135c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  death_sprite: {fileID: 0}
+  win_sprite: {fileID: 0}
+  idle1_sprite: {fileID: 0}
+  idle2_sprite: {fileID: 0}
+  consume_sprite: {fileID: 0}
   speed: 5
   hunger_meter: 0
   max_hunger_meter: 10000
@@ -179,7 +184,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 8cf4286dcd01bfe42b1881523dfdacfd, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.05
   m_Pitch: 1.1
   Loop: 0
   Mute: 0

@@ -5,6 +5,22 @@ using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+
+    public Sprite death_sprite;
+    public Sprite win_sprite;
+    public Sprite idle1_sprite;
+    public Sprite idle2_sprite;
+    public Sprite consume_sprite;
+
+    float anim_idle_change_time;
+    bool anim_toggle = false;
+    bool player_dead = false;
+
+    void UpdateSprite(Sprite new_sprite)
+    {
+        gameObject.GetComponent<SpriteRenderer>().sprite = new_sprite; 
+    }
+
     [SerializeField]
     private float speed = 5f;
     private float normal_speed = 5f;
@@ -35,7 +51,6 @@ public class Player : MonoBehaviour
     [SerializeField]
     bool god_mode = false;
 
-
     private void Start()
     {
         var blood = GameObject.FindGameObjectWithTag("Blood");
@@ -52,6 +67,8 @@ public class Player : MonoBehaviour
 
     void Update()
     {
+        if (player_dead)
+            return;
         Movement();
         Hunger();
     }
@@ -66,15 +83,18 @@ public class Player : MonoBehaviour
         Debug.Log(message);
         var ui = GetComponent<PlayerAnnouncement>();
         ui.Show(message, "success");
+        UpdateSprite(win_sprite);
         Destroy(this.gameObject, 3f);
     }
 
     void PlayerDied(string message)
     {
         Debug.Log(message);
+        player_dead = true;
         var ui = GetComponent<PlayerAnnouncement>();
         ui.Show(message, "failure");
-        Destroy(this.gameObject);
+        UpdateSprite(death_sprite);
+        Destroy(this.gameObject, 3f);
     }
 
     public int IncrementHungerMeter(int modifier)
@@ -225,10 +245,23 @@ public class Player : MonoBehaviour
             speed = consume_speed;
             consume_effect_end = Time.time + consume_effect_time;
             StartCoroutine(ScaleControl(2, consume_effect_time));
+            UpdateSprite(consume_sprite);
         }
 
         if (Time.time > consume_effect_end)
+        {
             speed = normal_speed;
+            UpdateSprite(idle1_sprite);
+            if (Time.time > anim_idle_change_time)
+            {
+                anim_idle_change_time += 0.5f;
+                anim_toggle = !anim_toggle;
+                if(anim_toggle)
+                    UpdateSprite(idle2_sprite);
+                else
+                    UpdateSprite(idle1_sprite);
+            }
+        }
 
         transform.Translate(Time.deltaTime * speed * direction);
 
