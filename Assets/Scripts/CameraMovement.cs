@@ -5,6 +5,12 @@ using UnityEngine;
 public class CameraMovement : MonoBehaviour
 {
     public float speed = 0.01f;
+    private float min_speed = 0.01f;
+
+    private float speed_update_delay = 10f;
+    private float speed_update_scale = 0.005f;
+    private float next_speed_update_time;
+
 
     [SerializeField]
     private float end_of_world_y = 30f;
@@ -17,9 +23,20 @@ public class CameraMovement : MonoBehaviour
         return v >= a && v < b;
     }
 
+    private void Start()
+    {
+        next_speed_update_time = Time.time + speed_update_delay;
+    }
+
     void Update()
     {
-        speed = Mathf.Clamp(speed, 0, 0.3f);
+        if (Time.time > next_speed_update_time)
+        {
+            next_speed_update_time += speed_update_delay;
+            min_speed += speed_update_scale;
+        }
+
+        speed = Mathf.Clamp(speed, min_speed, 0.3f);
         var cur_speed = 0f;
         var direction = Vector3.up;
 
