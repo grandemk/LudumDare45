@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 8532111167035930950}
   - component: {fileID: 8532111167035930949}
   - component: {fileID: 8532111167035930948}
-  m_Layer: 9
+  m_Layer: 10
   m_Name: PNJ_MadFood
   m_TagString: MadFood
   m_Icon: {fileID: 0}
@@ -144,4 +144,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   satiation_value: 1500
   speed: 2.5
-  mad_food_prefab: {fileID: 8532111167035930947}
+  cam_movement: {fileID: 0}
