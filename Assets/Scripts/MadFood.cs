@@ -35,7 +35,7 @@ public class MadFood : Food
         var player = obj.GetComponent<Player>();
         if (player == null)
             return;
-        player.hunger_meter -= 2;
+        player.DecrementHungerMeter(2);
     }
 
     void SpeedUp()

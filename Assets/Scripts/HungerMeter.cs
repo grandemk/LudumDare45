@@ -16,6 +16,6 @@ public class HungerMeter : MonoBehaviour
     {
         var slider = GetComponent<Slider>();
         if(player != null)
-            slider.value = (float)player.hunger_meter / (float)player.max_hunger_meter;
+            slider.value = (float)player.GetHungerMeter() / (float)player.max_hunger_meter;
     }
 }

@@ -26,7 +26,7 @@ public class AngryFood : Food
         var player = obj.GetComponent<Player>();
         if (player == null)
             return;
-        player.hunger_meter -= 10;
+        player.DecrementHungerMeter(10);
     }
 
     void Update()

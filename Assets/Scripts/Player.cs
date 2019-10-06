@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -8,8 +9,12 @@ public class Player : MonoBehaviour
     private float speed = 5f;
     private float normal_speed = 5f;
 
-    public int hunger_meter = 0;
+    [SerializeField]
+    private int hunger_meter = 0;
     public int max_hunger_meter = 10000;
+    private int previous_hunger_meter = 0;
+    private Queue<int> hunger_meter_diffs = new Queue<int>();
+    private Queue<int> hunger_meter_decrs = new Queue<int>();
 
     [SerializeField]
     private float grace_period = 5;
@@ -23,6 +28,7 @@ public class Player : MonoBehaviour
     private bool can_consume = false;
     private float consume_speed = 10f;
     private bool player_is_out_of_bound = false;
+    private float signal_life_time;
 
     private Vector3 scale;
 
@@ -32,9 +38,16 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
+        var blood = GameObject.FindGameObjectWithTag("Blood");
+        signal_life_time = Time.time;
         grace_period_end = Time.time + grace_period;
         next_consume_time = Time.time;
         scale = transform.localScale;
+
+        var image = blood.GetComponent<Image>();
+        var c = image.color;
+        c.a = 0f;
+        image.color = c;
     }
 
     void Update()
@@ -52,21 +65,77 @@ public class Player : MonoBehaviour
     {
         Debug.Log(message);
         var ui = GetComponent<PlayerAnnouncement>();
-        ui.Show("You Win", "success");
-        Destroy(this.gameObject);
+        ui.Show(message, "success");
+        Destroy(this.gameObject, 3f);
     }
 
     void PlayerDied(string message)
     {
         Debug.Log(message);
         var ui = GetComponent<PlayerAnnouncement>();
-        ui.Show("You Died", "failure");
+        ui.Show(message, "failure");
         Destroy(this.gameObject);
+    }
+
+    public int IncrementHungerMeter(int modifier)
+    {
+        hunger_meter += modifier;
+        if (hunger_meter_decrs.Count > 120f)
+            hunger_meter_decrs.Dequeue();
+        hunger_meter_decrs.Enqueue(modifier);
+        return hunger_meter;
+    }
+
+    public int GetHungerMeter()
+    {
+        return hunger_meter;
+    }
+
+    public int DecrementHungerMeter(int modifier)
+    {
+        hunger_meter -= modifier;
+        if (hunger_meter_decrs.Count > 120f)
+            hunger_meter_decrs.Dequeue();
+        hunger_meter_decrs.Enqueue(modifier);
+        return hunger_meter;
+    }
+
+    // on last 1s
+    public float GetHungerTrend()
+    {
+        float diff_average = 0;
+        foreach(var diff in hunger_meter_diffs)
+        {
+            diff_average += diff;
+        }
+        var count = hunger_meter_diffs.Count;
+        if (count == 0)
+            return 0;
+        diff_average /= (float)hunger_meter_diffs.Count;
+        return diff_average;
+    }
+
+    public float GetHungerDecr()
+    {
+        float decr_sum = 0;
+        foreach(var decr in hunger_meter_decrs)
+            decr_sum += decr;
+
+        return decr_sum;
+    }
+
+    private void UpdateHungerTrend()
+    {
+        hunger_meter_diffs.Enqueue(hunger_meter - previous_hunger_meter);
+        if (hunger_meter_diffs.Count > 60)
+            hunger_meter_diffs.Dequeue();
+        previous_hunger_meter = hunger_meter;
     }
 
     void Hunger()
     {
-        hunger_meter--;
+        DecrementHungerMeter(1);
+        UpdateHungerTrend();
 
         if (hunger_meter > 1000)
         {
@@ -91,14 +160,47 @@ public class Player : MonoBehaviour
 
             if (hunger_meter < 0)
             {
-                PlayerDied("Player Died. Too Hungry");
+                PlayerDied("You died from Hunger");
             }
         }
 
 
         if (hunger_meter > max_hunger_meter)
         {
-            PlayerWin("Player Won. Satisfied his hunger");
+            PlayerWin("You Won! Finally Satiated !");
+        }
+
+        Debug.Log("trend: " + GetHungerTrend() + ", decr: " + GetHungerDecr() + ", hunger: " + GetHungerMeter());
+        bool should_signal_life = GetHungerMeter() < 300;
+        if (should_signal_life && Time.time > signal_life_time)
+        {
+            signal_life_time += 5f;
+            var ui = GetComponent<PlayerAnnouncement>();
+            ui.ShowFor("So Hungry...", "info", 1f);
+        }
+
+        if(GetHungerDecr() > 800 || GetHungerMeter() < 300)
+        {
+            var blood = GameObject.FindGameObjectWithTag("Blood");
+            if(blood != null)
+            {
+                var image = blood.GetComponent<Image>();
+                var c = image.color;
+                c.a = 0.5f;
+                image.color = c;
+            }
+        }
+        else
+        {
+            var blood = GameObject.FindGameObjectWithTag("Blood");
+            if(blood != null)
+            {
+                var image = blood.GetComponent<Image>();
+                var c = image.color;
+                c.a = 0f;
+                image.color = c;
+            }
+
         }
     }
 
@@ -130,8 +232,8 @@ public class Player : MonoBehaviour
 
         transform.Translate(Time.deltaTime * speed * direction);
 
-        if(player_is_out_of_bound && !god_mode)
-            PlayerDied("Player Died. Got Caught Outside the Camera");
+        if (player_is_out_of_bound && !god_mode)
+            PlayerDied("You Died in the Abyss...");
     }
 
     IEnumerator ScaleControl(float final_scale, float consume_effect_time)

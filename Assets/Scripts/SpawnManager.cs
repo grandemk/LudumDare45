@@ -27,15 +27,12 @@ public class SpawnManager : MonoBehaviour
     private float spawn_interval_delay = 2.5f;
 
     public Player player;
-    float hunger_meter_trend = 0f;
-    float time_hunger_check;
 
     [SerializeField]
     private Camera cam;
 
     void Start()
     {
-        time_hunger_check = Time.time;
         is_running = true;
         spawn_coroutine = SpawnRoutine();
         StartCoroutine(spawn_coroutine);
@@ -43,15 +40,8 @@ public class SpawnManager : MonoBehaviour
 
     void Update()
     {
-        if (Time.time >= time_hunger_check)
-        {
-            time_hunger_check += 1f;
-            var cur_hunger_meter = 0;
-            if (player == null)
-                cur_hunger_meter = player.hunger_meter;
-
-            hunger_meter_trend = cur_hunger_meter - hunger_meter_trend;
-        }
+        if (player == null)
+            return;
     }
 
     private int ChooseSpawnNumber(int hunger_meter, float dist)
@@ -95,7 +85,7 @@ public class SpawnManager : MonoBehaviour
             {
                 var hunger_meter = 0;
                 if (player != null)
-                    hunger_meter = player.hunger_meter;
+                    hunger_meter = player.GetHungerMeter();
 
                 int spawn_num = ChooseSpawnNumber(hunger_meter, Random.Range(0f, 1f));
                 
@@ -109,7 +99,7 @@ public class SpawnManager : MonoBehaviour
                 }
             }
 
-            if (hunger_meter_trend < 20f)
+            if (player != null && player.GetHungerTrend() < 20f)
                 spawn_interval_delay = 1f;
 
             if (num_simultaneous_spawn < min_simultaneous_spawn)
