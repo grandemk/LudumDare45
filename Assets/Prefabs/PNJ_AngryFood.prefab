@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 4842197996630458743}
   m_Layer: 9
   m_Name: PNJ_AngryFood
-  m_TagString: Untagged
+  m_TagString: AngryFood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

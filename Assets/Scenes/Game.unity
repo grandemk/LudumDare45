@@ -930,11 +930,13 @@ MonoBehaviour:
     type: 3}
   angry_food_prefab: {fileID: 4842197996630458740, guid: 1e43c0b48172c424890250d41e03b219,
     type: 3}
+  mad_food_prefab: {fileID: 8532111167035930947, guid: e0e0c3ac75e9436428fd89c10a25ed43,
+    type: 3}
   spawn_container: {fileID: 2088256305}
   max_simultaneous_spawn: 10
   spawn_interval_delay: 1
   player: {fileID: 614295115}
-  camera: {fileID: 1413333303}
+  cam: {fileID: 1413333303}
 --- !u!4 &1747787124
 Transform:
   m_ObjectHideFlags: 0
@@ -1306,7 +1308,7 @@ PrefabInstance:
     - target: {fileID: 30205900967582032, guid: 315a2e98448d9bc4088fe3123c45654e,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.5538645
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 30205900967582032, guid: 315a2e98448d9bc4088fe3123c45654e,
         type: 3}
@@ -1346,6 +1348,11 @@ PrefabInstance:
     - target: {fileID: 30205900967582032, guid: 315a2e98448d9bc4088fe3123c45654e,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8943925362220657961, guid: 315a2e98448d9bc4088fe3123c45654e,
+        type: 3}
+      propertyPath: god_mode
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1344485215, guid: 315a2e98448d9bc4088fe3123c45654e, type: 3}

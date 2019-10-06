@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 371018124}
   m_Layer: 9
   m_Name: PNJ_BasicFood
-  m_TagString: Untagged
+  m_TagString: BasicFood
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -46,8 +46,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 93c79c3802d1be54d858723855f1efbd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 2.5
   satiation_value: 250
+  speed: 2.5
 --- !u!50 &371018126
 Rigidbody2D:
   serializedVersion: 4
