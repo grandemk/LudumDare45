@@ -16,9 +16,6 @@ public class Player : MonoBehaviour
     private float grace_period_end;
     private bool grace_has_ended;
 
-    [SerializeField]
-    private float border_x = 9.5f;
-
     private float dash_cooldown = 1f;
     private float next_dash_time;
     private float dash_effect_time = 0.5f;
@@ -125,25 +122,8 @@ public class Player : MonoBehaviour
             speed = normal_speed;
 
         transform.Translate(Time.deltaTime * speed * direction);
-        transform.position = WrapX(transform.position, -border_x, border_x);
 
         if(player_is_out_of_bound && !god_mode)
             PlayerDied("Player Died. Got Caught Outside the Camera");
-    }
-
-    Vector3 WrapX(Vector3 v, float a, float b)
-    {
-        if (v.x > b)
-        {
-            return new Vector3(a, transform.position.y, 0);
-        }
-        else if (v.x <= a)
-        {
-            return new Vector3(b, transform.position.y, 0);
-        }
-        else
-        {
-            return v;
-        }
     }
 }
