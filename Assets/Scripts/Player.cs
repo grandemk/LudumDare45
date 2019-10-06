@@ -137,7 +137,7 @@ public class Player : MonoBehaviour
     IEnumerator ScaleControl(float final_scale, float consume_effect_time)
     {
         var starting_local_scale = transform.localScale;
-        var num_steps = 10;
+        var num_steps = 20;
         var step_time = consume_effect_time / (2f * num_steps);
         var start_scale = 1f;
 
