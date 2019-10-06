@@ -1213,6 +1213,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 0.01
   end_of_world_y: 30
+  player: {fileID: 614295115}
 --- !u!1 &1559609189
 GameObject:
   m_ObjectHideFlags: 0

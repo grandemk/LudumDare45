@@ -17,6 +17,8 @@ public class CameraMovement : MonoBehaviour
     private float end_of_world_x_1 = 25.1f;
     private float end_of_world_x_2 = 52.2f;
 
+    public Player player;
+
     /* v in [a, b[ */
     private bool IsBetween(float v, float a, float b)
     {
@@ -30,6 +32,12 @@ public class CameraMovement : MonoBehaviour
 
     void Update()
     {
+        if (player == null)
+            return;
+
+        if(player.player_finished)
+            return;
+
         if (Time.time > next_speed_update_time)
         {
             next_speed_update_time += speed_update_delay;

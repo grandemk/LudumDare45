@@ -14,7 +14,7 @@ public class Player : MonoBehaviour
 
     float anim_idle_change_time;
     bool anim_toggle = false;
-    bool player_dead = false;
+    public bool player_finished = false;
 
     void UpdateSprite(Sprite new_sprite)
     {
@@ -69,7 +69,7 @@ public class Player : MonoBehaviour
 
     void Update()
     {
-        if (player_dead)
+        if (player_finished)
             return;
         Movement();
         Hunger();
@@ -83,6 +83,7 @@ public class Player : MonoBehaviour
     void PlayerWin(string message)
     {
         Debug.Log(message);
+        player_finished = true;
         var ui = GetComponent<PlayerAnnouncement>();
         ui.Show(message, "success");
         UpdateSprite(win_sprite);
@@ -92,7 +93,7 @@ public class Player : MonoBehaviour
     void PlayerDied(string message)
     {
         Debug.Log(message);
-        player_dead = true;
+        player_finished = true;
         var ui = GetComponent<PlayerAnnouncement>();
         ui.Show(message, "failure");
         UpdateSprite(death_sprite);
@@ -165,7 +166,7 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("Player can now consume");
                 var ui = GetComponent<PlayerAnnouncement>();
-                ui.ShowFor("Right Button to Consume", "info", 4f);
+                ui.ShowFor("Mouse Right Button to Consume", "info", 4f);
             }
             can_consume = true;
         }
