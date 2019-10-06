@@ -160,5 +160,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6ee46a703e071dc4aa911d94e81498ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textPrefab: {fileID: 3688030811540538987, guid: cb9c1878f2c97254d88ddd6bc39f51b5,
+  bad_text_prefab: {fileID: 3688030811540538987, guid: cb9c1878f2c97254d88ddd6bc39f51b5,
+    type: 3}
+  info_text_prefab: {fileID: 8362763633192414363, guid: d8cd8844077ee79418c06d834c1cd990,
+    type: 3}
+  success_text_prefab: {fileID: 1600261017932090374, guid: 3b280e9d784dd234eba42b5f87e6510c,
     type: 3}
