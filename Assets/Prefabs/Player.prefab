@@ -145,7 +145,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  hunger_meter: 6000
+  hunger_meter: 0
   max_hunger_meter: 10000
   grace_period: 5
   god_mode: 0
@@ -177,10 +177,10 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: cbbf73fe5757d1448aa1c99c64613afe, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 8cf4286dcd01bfe42b1881523dfdacfd, type: 3}
   m_PlayOnAwake: 0
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: 1.1
   Loop: 0
   Mute: 0
   Spatialize: 0

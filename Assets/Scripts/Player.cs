@@ -106,7 +106,7 @@ public class Player : MonoBehaviour
     {
         var audio_source = GetComponent<AudioSource>();
         if (audio_source != null)
-            audio_source.Play(1);
+            audio_source.Play();
         hunger_meter += food.satiation_value;
     }
 
