@@ -18,7 +18,10 @@ public class SpawnManager : MonoBehaviour
     private GameObject spawn_container;
 
     [SerializeField]
-    private int max_simultaneous_spawn = 10;
+    private int max_simultaneous_spawn = 20;
+
+    [SerializeField]
+    private int min_simultaneous_spawn = 2;
 
     [SerializeField]
     private float spawn_interval_delay = 2.5f;
@@ -100,7 +103,7 @@ public class SpawnManager : MonoBehaviour
                 {
                     var spawned_prefab = ChooseSpawnType(hunger_meter, Random.Range(0f, 1f));
                     GameObject obj = Instantiate(spawned_prefab, spawn_container.transform);
-                    Vector3 world_pos = cam.ScreenToWorldPoint(new Vector3(Screen.width / 2 + Random.Range(0, Screen.width / 2 - 1), Screen.height / 2 + Random.Range(0, Screen.height / 2 - 1), 0));
+                    Vector3 world_pos = cam.ScreenToWorldPoint(new Vector3(Screen.width / 2 + Random.Range(-Screen.width / 2 + 1, Screen.width / 2 - 1), Screen.height / 2 + Random.Range(-Screen.height / 2 + 1, Screen.height / 2 - 1), 0));
                     world_pos.z = 0f;
                     obj.transform.position = world_pos;
                 }
@@ -108,6 +111,9 @@ public class SpawnManager : MonoBehaviour
 
             if (hunger_meter_trend < 20f)
                 spawn_interval_delay = 1f;
+
+            if (num_simultaneous_spawn < min_simultaneous_spawn)
+                spawn_interval_delay = 0.5f;
 
             yield return new WaitForSeconds(spawn_interval_delay);
         }
