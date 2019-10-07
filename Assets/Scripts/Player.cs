@@ -166,7 +166,7 @@ public class Player : MonoBehaviour
             {
                 Debug.Log("Player can now consume");
                 var ui = GetComponent<PlayerAnnouncement>();
-                ui.ShowFor("Mouse Right Button to Consume", "info", 4f);
+                ui.ShowFor("J or Mouse Right Button to Consume", "info", 4f);
             }
             can_consume = true;
         }
@@ -242,7 +242,7 @@ public class Player : MonoBehaviour
 
         Vector3 direction = new Vector3(horizontal_input, vertical_input, 0);
 
-        if (Input.GetMouseButtonDown(1) && can_consume && next_consume_time < Time.time)
+        if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.J) && can_consume && next_consume_time < Time.time)
         {
             next_consume_time = Time.time + consume_cooldown;
             speed = consume_speed;
