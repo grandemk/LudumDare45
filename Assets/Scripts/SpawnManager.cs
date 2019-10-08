@@ -8,14 +8,14 @@ public class SpawnManager : MonoBehaviour
     private IEnumerator spawn_coroutine;
 
     [SerializeField]
-    private GameObject basic_food_prefab;
+    private GameObject basic_food_prefab = null;
     [SerializeField]
-    private GameObject angry_food_prefab;
+    private GameObject angry_food_prefab = null;
     [SerializeField]
-    private GameObject mad_food_prefab;
+    private GameObject mad_food_prefab = null;
 
     [SerializeField]
-    private GameObject spawn_container;
+    private GameObject spawn_container = null;
 
     [SerializeField]
     private int max_simultaneous_spawn = 20;
@@ -29,7 +29,7 @@ public class SpawnManager : MonoBehaviour
     public Player player;
 
     [SerializeField]
-    private Camera cam;
+    private Camera cam = null;
 
     void Start()
     {
